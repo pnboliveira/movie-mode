@@ -20,9 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('/comments', 'CommentController');
-Route::resource('/user', 'UserController')->middleware('auth','role:admin');
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    Route::get('/user', 'UserController@index')->name('all-users');
+    Route::delete('/user/{id}', 'UserController@destroy')->name('user-delete');
+});
 
-Route::resource('/posts', 'PostController')->middleware('auth','role:admin','role:moderator');
+Route::resource('/posts', 'PostController')->middleware('auth', 'role:admin', 'role:moderator');
 Route::get('/all', 'PostController@allposts')->name('allposts');
 Route::get('/posts/{id}', 'PostController@show');
 

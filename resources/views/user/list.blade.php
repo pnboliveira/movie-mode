@@ -35,9 +35,9 @@
                                 <td>{{ $user->gender }}</td>
                                 @role('admin')
                                 <td>
-                                    <form action="{{ route('user.destroy', $user->id)}}" method="user">
+                                    <form action="{{ route('user-delete', $user->id)}}" method="POST">
                                         {{ csrf_field() }}
-                                        @method('DELETE')
+                                        {{ method_field('DELETE') }}
                                         <button class="btn btn-danger" type="submit">Delete</button>
                                     </form>
                                 </td>
@@ -46,7 +46,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    
+
                 </div>
             </div>
         </div>
